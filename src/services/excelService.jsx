@@ -10,16 +10,12 @@ const readExcel = (file) => {
             const wb = XLSX.read(bufferArray, { type: 'buffer' });
             const wsname = wb.SheetNames[0] + '';
             const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_add_json(ws);
+            const data = XLSX.utils.sheet_to_json(ws);
             res(data);
         }
         fileReader.onerror = (err) => {
             rej(err);
         }
-    })
-
-    promise.then((d) => {
-        console.log(d);
     })
 
     return promise;
